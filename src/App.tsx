@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
+import MarkedInput from "./components/markedInput";
+import Result from "./components/result";
+import EditorContext from "./editorContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [markdownText, setMarkdownText] = useState<string>("");
 
+    const contextValue = {
+        markdownText,
+        setMarkdownText,
+    };
+
+    return (
+        <EditorContext.Provider value={contextValue}>
+            <AppContainer>
+                <Title>Markdown Editor</Title>
+                <EditorContainter>
+                    <MarkedInput />
+                    <Result />
+                </EditorContainter>
+            </AppContainer>
+        </EditorContext.Provider>
+    );
+};
+
+const AppContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const EditorContainter = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+`;
+
+const Title = styled.div`
+    font-size: 25px;
+    font-weight: 700;
+    font-family: "Lato", sans-serif;
+    margin-bottom: 1em;
+`;
 export default App;
